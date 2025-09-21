@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReadyNurse GO!</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #10b981 100%);
+        }
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i data-feather="heart" class="h-8 w-8 text-indigo-600"></i>
+                        <span class="ml-2 text-xl font-bold text-gray-900">ReadyNurse GO!</span>
+                    </div>
+                </div>
+                <div class="hidden md:ml-6 md:flex md:items-center md:space-x-8">
+                    <a href="#" class="text-indigo-600 px-3 py-2 text-sm font-medium">Home</a>
+                    <a href="#" class="text-gray-500 hover:text-indigo-600 px-3 py-2 text-sm font-medium">Games</a>
+                    <a href="#" class="text-gray-500 hover:text-indigo-600 px-3 py-2 text-sm font-medium">Leaderboard</a>
+                    <a href="#" class="text-gray-500 hover:text-indigo-600 px-3 py-2 text-sm font-medium">Resources</a>
+                    <button class="bg-indigo-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-indigo-700 transition duration-300">Sign In</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="gradient-bg text-white">
+        <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight" data-aos="fade-up">
+                ReadyNurse <span class="text-yellow-300">GO!</span>
+            </h1>
+            <p class="mt-6 max-w-3xl mx-auto text-xl" data-aos="fade-up" data-aos-delay="100">
+                Level up your nursing skills through interactive games and challenges
+            </p>
+            <div class="mt-10" data-aos="fade-up" data-aos-delay="200">
+                <button class="pulse-animation bg-white text-indigo-600 px-8 py-4 rounded-full text-lg font-bold hover:bg-gray-100 transition duration-300">
+                    Start Learning Now
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center">
+                <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase" data-aos="fade-up">Gamified Learning</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl" data-aos="fade-up" data-aos-delay="100">
+                    Master Nursing Concepts the Fun Way
+                </p>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto" data-aos="fade-up" data-aos-delay="200">
+                    Our interactive games make complex nursing topics engaging and memorable
+                </p>
+            </div>
+
+            <div class="mt-20">
+                <div class="grid grid-cols-1 gap-12 md:grid-cols-3">
+                    <!-- Game Card 1 -->
+                    <div class="game-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300" data-aos="fade-up">
+                        <div class="p-8">
+                            <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-100 text-indigo-600">
+                                <i data-feather="activity"></i>
+                            </div>
+                            <h3 class="mt-6 text-lg font-medium text-gray-900">Pharmacology Challenges</h3>
+                            <p class="mt-2 text-base text-gray-500">
+                                Test your knowledge of medications, dosages, and interactions through timed quizzes and scenario-based challenges.
+                            </p>
+                            <div class="mt-6">
+                                <!-- PLACEHOLDER: PHARMA GAME -->
+                                <div id="pharma-game" class="border-2 border-dashed border-indigo-400 p-4 text-center">
+                                    <div id="quiz-container">Loading quiz...</div>
+
+<script>
+  async function showFirstQuiz() {
+    const quizzes = await fetchQuizzes();
+    if (!quizzes || quizzes.length === 0) { document.getElementById('quiz-container').innerText = 'No quizzes yet.'; return; }
+    const q = quizzes[0];
+    const choices = q.choices; // JSON array
+    const container = document.getElementById('quiz-container');
+    container.innerHTML = `<h4>${q.question}</h4>` + choices.map((c,i) => `<button class="quiz-choice" data-index="${i}">${c}</button>`).join('');
+    document.querySelectorAll('.quiz-choice').forEach(btn => btn.onclick = async (e) => {
+      const idx = Number(e.target.dataset.index);
+      const score = (idx === q.answer_index) ? 1 : 0;
+      // Optionally store result
+      await submitScore(q.id, score);
+      alert(idx === q.answer_index ? 'Correct!' : 'Wrong!');
+      // You could then show next question...
+    });
+  }
+  showFirstQuiz();
+</script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Game Card 2 -->
+                    <div class="game-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300" data-aos="fade-up" data-aos-delay="100">
+                        <div class="p-8">
+                            <div class="flex items-center justify-center h-12 w-12 rounded-md bg-green-100 text-green-600">
+                                <i data-feather="layers"></i>
+                            </div>
+                            <h3 class="mt-6 text-lg font-medium text-gray-900">Anatomy Puzzles</h3>
+                            <p class="mt-2 text-base text-gray-500">
+                                Identify body systems and structures through interactive 3D models and jigsaw-style puzzles.
+                            </p>
+                            <div class="mt-6">
+                                <!-- PLACEHOLDER: ANATOMY GAME -->
+                                <div id="anatomy-puzzle" class="border-2 border-dashed border-green-400 p-4 text-center">
+                                    Anatomy Puzzle Placeholder
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Game Card 3 -->
+                    <div class="game-card bg-white rounded-xl shadow-md overflow-hidden transition duration-300" data-aos="fade-up" data-aos-delay="200">
+                        <div class="p-8">
+                            <div class="flex items-center justify-center h-12 w-12 rounded-md bg-purple-100 text-purple-600">
+                                <i data-feather="user"></i>
+                            </div>
+                            <h3 class="mt-6 text-lg font-medium text-gray-900">Clinical Scenarios</h3>
+                            <p class="mt-2 text-base text-gray-500">
+                                Make critical decisions in realistic patient care situations and see the consequences of your choices.
+                            </p>
+                            <div class="mt-6">
+                                <!-- PLACEHOLDER: CLINICAL GAME -->
+                                <div id="clinical-scenario" class="border-2 border-dashed border-purple-400 p-4 text-center">
+                                    Clinical Scenario Placeholder
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PLACEHOLDER: USER AUTH -->
+    <section id="auth-section" class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div class="border-2 border-dashed border-indigo-400 p-6 text-center">
+            <div id="auth-ui">
+  <div id="signup-form" style="display:none;">
+    <input id="su-email" placeholder="Email" />
+    <input id="su-username" placeholder="Display name" />
+    <input id="su-pass" type="password" placeholder="Password" />
+    <button id="btn-signup">Sign Up</button>
+  </div>
+
+  <div id="login-form">
+    <input id="li-email" placeholder="Email" />
+    <input id="li-pass" type="password" placeholder="Password" />
+    <button id="btn-login">Sign In</button>
+    <button id="btn-show-signup">Create account</button>
+  </div>
+
+  <div id="user-info" style="display:none;">
+    <span id="user-email"></span>
+    <button id="btn-logout">Logout</button>
+  </div>
+</div>
+
+<script>
+  // Hook buttons to the helper functions above
+  document.getElementById('btn-show-signup').onclick = () => {
+    document.getElementById('login-form').style.display = 'none';
+    document.getElementById('signup-form').style.display = 'block';
+  };
+  document.getElementById('btn-signup').onclick = async () => {
+    const email = document.getElementById('su-email').value;
+    const pass = document.getElementById('su-pass').value;
+    const username = document.getElementById('su-username').value;
+    await signUp(email, pass, username);
+    alert('Check your email to confirm sign up (if required). Then sign in.');
+  };
+  document.getElementById('btn-login').onclick = async () => {
+    const email = document.getElementById('li-email').value;
+    const pass = document.getElementById('li-pass').value;
+    await signIn(email, pass);
+    location.reload();
+  };
+  document.getElementById('btn-logout').onclick = async () => {
+    await signOut();
+  };
+
+  // On page load - show user info if signed-in
+  (async function() {
+    const { data } = await supabase.auth.getUser();
+    if (data.user) {
+      document.getElementById('login-form').style.display = 'none';
+      document.getElementById('signup-form').style.display = 'none';
+      document.getElementById('user-info').style.display = 'block';
+      document.getElementById('user-email').innerText = data.user.email;
+    }
+  })();
+</script>
+        </div>
+    </section>
+
+    <!-- PLACEHOLDER: USER PROFILE -->
+    <section id="profile-section" class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div class="border-2 border-dashed border-green-400 p-6 text-center">
+            User Profile Placeholder
+        </div>
+    </section>
+
+    <!-- PLACEHOLDER: LEADERBOARD -->
+    <section id="leaderboard" class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div class="border-2 border-dashed border-purple-400 p-6 text-center">
+            <div id="leaderboard-list">Loading leaderboard...</div>
+<script>
+  async function renderLeaderboard() {
+    const lb = await getLeaderboard(10);
+    const container = document.getElementById('leaderboard-list');
+    if (!lb || lb.length === 0) { container.innerHTML = 'No scores yet.'; return; }
+    container.innerHTML = '<ol>' + lb.map(r => `<li>${r.username || 'Anonymous'} — ${r.score} (${new Date(r.created_at).toLocaleString()})</li>`).join('') + '</ol>';
+  }
+  renderLeaderboard();
+</script>
+        </div>
+    </section>
+
+    <!-- PLACEHOLDER: RESOURCES -->
+    <section id="resources" class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div class="border-2 border-dashed border-gray-400 p-6 text-center">
+            Resources Placeholder
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <!-- (your existing stats/testimonials/CTA/footer remain unchanged) -->
+
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+        feather.replace();
+    </script>
+    <!-- Supabase client (CDN) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
+
+<script>
+  // Paste your values here (or use environment variables when deploying)
+  const SUPABASE_URL = 'https://eanltgkmjlnlpptrnugr.supabase.co'; // replace
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVhbmx0Z2ttamxubHBwdHJudWdyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg0NzYwNjAsImV4cCI6MjA3NDA1MjA2MH0.7FBpn_B1kNwRJfSxcTm0RlYvTWBfZ4en11R42rrrjxs'; // replace
+
+  const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  // -------- Authentication helpers --------
+  async function signUp(email, password, displayName) {
+    const { data, error } = await supabase.auth.signUp({
+      email, password
+    }, { data: { username: displayName } });
+    if (error) { console.error(error); alert(error.message); }
+    return data;
+  }
+
+  async function signIn(email, password) {
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) { console.error(error); alert(error.message); }
+    return data;
+  }
+
+  async function signOut() {
+    await supabase.auth.signOut();
+    location.reload();
+  }
+
+  // get current user
+  function getCurrentUser() {
+    return supabase.auth.getUser(); // returns a Promise
+  }
+
+  // -------- Fetch quizzes --------
+  async function fetchQuizzes() {
+    const { data, error } = await supabase
+      .from('quizzes')
+      .select('*')
+      .order('id', { ascending: true })
+      .limit(100);
+    if (error) { console.error(error); return []; }
+    return data;
+  }
+
+  // -------- Submit score (authenticated user) --------
+  async function submitScore(quizId, score) {
+    // get logged-in user's id
+    const user = (await supabase.auth.getUser()).data.user;
+    if (!user) { alert('Please sign in to save your score.'); return; }
+
+    const { data, error } = await supabase
+      .from('scores')
+      .insert([{ user_id: user.id, username: user.user_metadata?.username ?? user.email, score, quiz_id: quizId }]);
+    if (error) { console.error(error); alert('Error saving score: ' + error.message); }
+    return data;
+  }
+
+  // -------- Get leaderboard (top scores) --------
+  async function getLeaderboard(limit = 10) {
+    const { data, error } = await supabase
+      .from('scores')
+      .select('username, score, created_at')
+      .order('score', { ascending: false })
+      .limit(limit);
+    if (error) { console.error(error); return []; }
+    return data;
+  }
+
+  // -------- Comments (community) --------
+  async function postComment(message) {
+    const user = (await supabase.auth.getUser()).data.user;
+    if (!user) { alert('Sign in to post comments.'); return; }
+    const { data, error } = await supabase
+      .from('comments')
+      .insert([{ user_id: user.id, username: user.user_metadata?.username ?? user.email, message }]);
+    if (error) { console.error(error); alert(error.message); }
+    return data;
+  }
+
+  async function fetchComments() {
+    const { data, error } = await supabase
+      .from('comments')
+      .select('username, message, created_at')
+      .order('created_at', { ascending: false })
+      .limit(50);
+    if (error) { console.error(error); return []; }
+    return data;
+  }
+
+  // You can call fetchQuizzes(), getLeaderboard(), etc. from your page code to render into placeholders.
+</script>
+</body>
+</html>
